@@ -1,4 +1,5 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { ConstantPool } from '@angular/compiler';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Task } from '../../Task';
 
 @Component({
@@ -8,12 +9,16 @@ import { Task } from '../../Task';
 })
 export class TaskItemComponent implements OnInit {
   @Input() task: Task;
-
+  @Output() onDelTask: EventEmitter<Task> = new EventEmitter();
+  @Output() onToggleReminder: EventEmitter<Task> = new EventEmitter();
   constructor() {}
 
   ngOnInit(): void {}
 
-  delTask() {
-    console.log('del button');
+  onDel(task: any) {
+    this.onDelTask.emit(task);
+  }
+  onToggle(task: any) {
+    this.onToggleReminder.emit(task);
   }
 }
